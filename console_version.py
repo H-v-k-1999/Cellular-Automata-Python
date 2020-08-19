@@ -1,13 +1,16 @@
-import random
-import os
+import random # For random initial position
+import os # For proper display in console
 
-N = 40
+N = 40 # Size of the grid (40 x 40)
+
+# 8 neighbours of any cell in the grid
 nI = [-1, -1, -1, 0, 1, 1,  1,  0]
 nJ = [-1,  0,  1, 1, 1, 0, -1, -1]
 
 # * alive
 # _ dead
 
+# This will terminate the program if all the cells die.
 def allZero(matrix):
 
 	for i in matrix:
@@ -17,6 +20,7 @@ def allZero(matrix):
 
 	return True
 
+# Updating the M2 grid on the basis of M1 grid.
 def cellularAutomate(M1, M2):
 
 	for i in range(N):
@@ -43,6 +47,7 @@ def cellularAutomate(M1, M2):
 				M2[i][j] = '*'
 
 
+# Two grids to update alternatively
 
 M1 = [['_' for _ in range(N)]
 		 for __ in range(N)]
@@ -50,6 +55,7 @@ M1 = [['_' for _ in range(N)]
 M2 = [['_' for _ in range(N)]
 		 for __ in range(N)]
 
+# Randon starting position for the grid
 for i in range(300):
 	x, y = random.randint(0, N-1), random.randint(0, N-1)
 	M1[x][y] = '*'
@@ -57,13 +63,15 @@ for i in range(300):
 
 while not allZero(M1) or allZero(M2):
 
+	# To clear the screen so matrix gets printed in the same position
 	os.system('cls')
 
+	# Printing the grid
 	for i in M1:
 		for j in i:
 			print(j + " ", end="")
 		print()
 	print()
 
-	cellularAutomate(M1, M2)
-	M1 = M2[:]
+	cellularAutomate(M1, M2) # Calling the update function
+	M1 = M2[:] #Copying M2 in M1
